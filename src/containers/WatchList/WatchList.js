@@ -5,12 +5,18 @@ import Button from "../../components/UI/Button/Button";
 import InputField from "../../components/UI/InputField/InputField";
 import Movie from "../../components/Movie/Movie";
 
+let savedMovies = localStorage.getItem("movies");
+savedMovies = JSON.parse(savedMovies) || [];
+
 class WatchList extends Component {
     state = {
-        movies: [],
+        movies: [...savedMovies],
         isWatchListEmpty: true,
         newMovie: ''
     };
+    componentDidUpdate() {
+        localStorage.setItem("movies", JSON.stringify(this.state.movies));
+    }
 
     changeNewMovie = (event) => {
         const newMovie = event.target.value;
