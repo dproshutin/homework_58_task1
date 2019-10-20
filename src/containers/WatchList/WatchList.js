@@ -18,6 +18,7 @@ class WatchList extends Component {
     };
     changeMovie = (event, id) => {
         this.setState(prevState => {
+            console.log("id", id);
             const movies = [...prevState.movies];
             const index = movies.findIndex(item => id === item.id);
             console.log(event.target.value);
@@ -48,7 +49,7 @@ class WatchList extends Component {
             movieList = this.state.movies.map(movie => (
                 <Movie
                     title={movie.title}
-                    change={() => this.changeMovie}
+                    change={this.changeMovie}
                     key={movie.id}
                 />
             ));

@@ -8,7 +8,7 @@ class Movie extends Component {
             <div>
                 <InputField
                     title={this.props.title}
-                    change={() => this.change()}
+                    change={(e, id) => this.props.change(e, id)}
                 />
             </div>
         );
