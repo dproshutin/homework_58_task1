@@ -11,8 +11,7 @@ savedMovies = JSON.parse(savedMovies) || [];
 class WatchList extends Component {
     state = {
         movies: [...savedMovies],
-        isWatchListEmpty: true,
-        newMovie: ''
+        newMovie: ""
     };
     componentDidUpdate() {
         localStorage.setItem("movies", JSON.stringify(this.state.movies));
@@ -25,10 +24,8 @@ class WatchList extends Component {
     changeMovie = (event, id) => {
         const value = event.target.value;
         this.setState(prevState => {
-            console.log("id", id);
             const movies = [...prevState.movies];
             const index = movies.findIndex(item => id === item.id);
-            console.log(index);
             movies[index].title = value;
             return {movies: movies};
         });
@@ -44,15 +41,17 @@ class WatchList extends Component {
     };
 
     addMovie = () => {
-        this.setState(prevState => {
-            const newMovie = {title: prevState.newMovie, id: uuid()};
-            const movies = [...prevState.movies];
-            movies.push(newMovie);
-            return {movies: movies, newMovie: ''};
-        });
+        if (this.state.newMovie !== "") {
+            this.setState(prevState => {
+                const newMovie = {title: prevState.newMovie, id: uuid()};
+                const movies = [...prevState.movies];
+                movies.push(newMovie);
+                return {movies: movies, newMovie: ''};
+            });
+        }
+        return;
     };
     render() {
-        console.log(this.state);
         let movieList = null;
 
         if (this.state.movies.length === 0) {
@@ -75,6 +74,7 @@ class WatchList extends Component {
             <div className="WatchListWrapper">
                 <InputField
                     title={this.state.newMovie}
+                    placeholder="Add a new movie"
                     change={this.changeNewMovie}
                 />
                 <Button

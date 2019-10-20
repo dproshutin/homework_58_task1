@@ -4,11 +4,16 @@ import './Movie.css';
 import Button from "../UI/Button/Button";
 
 class Movie extends Component {
+    shouldComponentUpdate(nextProps) {
+        return nextProps.title !== this.props.title;
+    }
+
     render() {
         return (
             <div>
                 <InputField
                     title={this.props.title}
+                    placeholder={null}
                     change={this.props.change}
                 />
                 <Button
