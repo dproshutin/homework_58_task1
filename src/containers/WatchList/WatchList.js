@@ -17,12 +17,22 @@ class WatchList extends Component {
         this.setState({newMovie});
     };
     changeMovie = (event, id) => {
+        const value = event.target.value;
         this.setState(prevState => {
             console.log("id", id);
             const movies = [...prevState.movies];
             const index = movies.findIndex(item => id === item.id);
-            console.log(event.target.value);
-            movies[index].title = event.target.value;
+            console.log(index);
+            movies[index].title = value;
+            return {movies: movies};
+        });
+    };
+
+    removeMovie = (id) => {
+        this.setState(prevState => {
+            const movies = [...prevState.movies];
+            const index = movies.findIndex(item => id === item.id);
+            movies.splice(index, 1);
             return {movies: movies};
         });
     };
@@ -49,8 +59,9 @@ class WatchList extends Component {
             movieList = this.state.movies.map(movie => (
                 <Movie
                     title={movie.title}
-                    change={this.changeMovie}
+                    change={(e) => this.changeMovie(e, movie.id)}
                     key={movie.id}
+                    remove={() => this.removeMovie(movie.id)}
                 />
             ));
         }
