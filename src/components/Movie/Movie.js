@@ -9,6 +9,7 @@ class Movie extends Component {
     }
 
     render() {
+        console.log("Movie render");
         return (
             <div>
                 <InputField
